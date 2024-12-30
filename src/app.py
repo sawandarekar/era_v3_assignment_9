@@ -1,12 +1,13 @@
 import gradio as gr
-from model import get_resnet50
+from model import ResNet50_Model
 from torchvision import transforms
 from PIL import Image
 import torch
-from config import MODEL_SAVE_PATH
+
+MODEL_SAVE_PATH= "resnet50_imagenet.pt"
 
 # Load the model
-model = get_resnet50(num_classes=200)
+model = ResNet50_Model()
 model.load_state_dict(torch.load(MODEL_SAVE_PATH, map_location="cpu"))
 model.eval()
 
