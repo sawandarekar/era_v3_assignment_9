@@ -4,7 +4,8 @@ import torch.nn.functional as F
 train_losses = []
 train_acc = []
 
-def train(model, device, train_loader, optimizer, epoch):
+def train(model, device, train_loader, optimizer, epoch, criterion):
+  print(f"Training on {device}")
   model.train()
   pbar = tqdm(train_loader)
   correct = 0
@@ -22,7 +23,10 @@ def train(model, device, train_loader, optimizer, epoch):
     y_pred = model(data)
 
     # Calculate loss
-    loss = F.nll_loss(y_pred, target)
+
+    loss = criterion(y_pred, target)
+    #loss = F.nll_loss(y_pred, target)
+
     train_losses.append(loss)
 
     # Backpropagation
