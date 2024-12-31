@@ -3,6 +3,10 @@ from model import ResNet50_Model
 from torchvision import transforms
 from PIL import Image
 import torch
+from classes import i2d  # Import the i2d dictionary
+
+# Generate a sorted list of class IDs from i2d keys
+class_ids = sorted(i2d.keys())
 
 MODEL_SAVE_PATH= "resnet50_imagenet.pt"
 
@@ -24,7 +28,13 @@ def classify_image(image):
     with torch.no_grad():
         outputs = model(image)
         _, predicted = outputs.max(1)
-    return f"Predicted Class: {predicted.item()}"
+    
+    # Map predicted index to class ID and label
+    predicted_class_id = class_ids[predicted.item()]
+    predicted_label = i2d.get(predicted_class_id, "Unknown")
+
+    #return f"Predicted Class: {predicted.item()}"
+    return f"Predicted Class: {predicted_label}"
 
 # Gradio interface
 demo = gr.Interface(
