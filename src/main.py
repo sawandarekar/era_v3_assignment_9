@@ -15,21 +15,18 @@ device = torch.device("cuda" if use_cuda else "cpu")
 model = ResNet50_Model(1000).to(device)
 summary(model, input_size=(3, 224, 224))
 
-
 # train dataloader
 # train_loader, test_loader = get_tiny_imagenet_dataset(config.BATCH_SIZE)
 train_loader, test_loader = get_imagenet_data_loaders("/mnt/s3bucket/imagenet_dataset/", config.BATCH_SIZE)
 # num_classes = len(train_loader.classes)
 
-device = torch.device("mps") if torch.backends.mps.is_available() else "cpu"
+device =  torch.device("cuda") if torch.cuda.is_available() else torch.device("mps") if torch.backends.mps.is_available() else "cpu"
 
 model =  ResNet50_Model(1000).to(device)
 optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
 scheduler = StepLR(optimizer, step_size=6, gamma=0.1)
 
 criterion = nn.CrossEntropyLoss()
-
-
 
 EPOCHS = 5
 for epoch in range(EPOCHS):
