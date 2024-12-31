@@ -5,7 +5,7 @@ train_losses = []
 train_acc = []
 
 def train(model, device, train_loader, optimizer, epoch, criterion):
-  print(f"Training on {device}")
+  # print(f"Training on {device}")
   model.train()
   pbar = tqdm(train_loader)
   correct = 0
