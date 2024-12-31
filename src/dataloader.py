@@ -98,7 +98,7 @@ def get_MNIST_data_loader():
 
 
 
-def get_data_loaders(data_dir, batch_size=32):
+def get_imagenet_data_loaders(data_dir, batch_size=32):
     # Define transformations for training and validation
     train_transforms = transforms.Compose([
         transforms.RandomResizedCrop(224, interpolation=transforms.InterpolationMode.BILINEAR, antialias=True),  # Randomly crop and resize to 224x224
