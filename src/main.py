@@ -6,7 +6,7 @@ from train import train
 from validate import test
 import torch.optim as optim
 from torchsummary import summary
-from dataloader import get_imagenet_data_loaders
+from dataloader import get_tiny_imagenet_dataset
 from checkpoint import save_model
 import config
 
@@ -17,8 +17,8 @@ summary(model, input_size=(3, 224, 224))
 
 
 # train dataloader
-# train_loader, test_loader = get_tiny_imagenet_dataset(config.BATCH_SIZE)
-train_loader, test_loader = get_imagenet_data_loaders("/mnt/s3bucket/imagenet_dataset/", config.BATCH_SIZE)
+train_loader, test_loader = get_tiny_imagenet_dataset(config.BATCH_SIZE)
+# train_loader, test_loader = get_imagenet_data_loaders("/mnt/s3bucket/imagenet_dataset/", config.BATCH_SIZE)
 # num_classes = len(train_loader.classes)
 
 device = torch.device("mps") if torch.backends.mps.is_available() else "cpu"
